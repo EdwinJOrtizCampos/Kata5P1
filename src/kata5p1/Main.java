@@ -3,6 +3,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class Main {
+    public static void crearTabla() {
+        String url = "jdbc:sqlite:KATA5.db";
+        String sql = "CREATE TABLE IF NOT EXISTS EMAIL (\n"
+            + " Id integer PRIMARY KEY AUTOINCREMENT,\n"
+            + " Mail text NOT NULL);";
+        try (Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         connect();
     }
@@ -24,7 +37,7 @@ public class Main {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-
+            crearTabla();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
